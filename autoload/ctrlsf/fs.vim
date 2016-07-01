@@ -25,6 +25,24 @@ func! ctrlsf#fs#FindVcsRoot() abort
     return root
 endf
 
+" FindVcsRootFromPwd()
+"
+func! ctrlsf#fs#FindVcsRootFromPwd() abort
+    let vsc_dir = ''
+    for vcs in s:vcs_folder
+        let vsc_dir = finddir(vcs, getcwd().';')
+        if !empty(vsc_dir)
+            break
+        endif
+    endfo
+
+    let root = empty(vsc_dir) ? '' : fnamemodify(vsc_dir, ':h')
+    call ctrlsf#log#Debug("ProjectRoot: %s", root)
+
+    return root
+endf
+
+
 " DetectFileFormat
 "
 " Determine file's format by <EOL>.

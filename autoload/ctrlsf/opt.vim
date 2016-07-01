@@ -145,11 +145,13 @@ func! ctrlsf#opt#GetPath() abort
     else
         let path = {
             \ 'project' : ctrlsf#fs#FindVcsRoot(),
+            \ 'reaper'  : ctrlsf#fs#FindVcsRootFromPwd(),
             \ 'cwd'     : getcwd(),
             \ }[g:ctrlsf_default_root]
         " If project root is not found, use current file
         if empty(path)
-            let path = expand('%:p')
+            "let path = expand('%:p')
+            let path = getcwd()
         endif
         call add(path_tokens, shellescape(path))
     endif
